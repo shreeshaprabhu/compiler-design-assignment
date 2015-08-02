@@ -1,3 +1,18 @@
+/**
+ * Program to convert regular expression into DFA and
+ * check whether given string is accepted.
+ * 
+ * Examples of regular expressions :
+ *     0.(0+1)*.0+0
+ *     (0+1)*.1.(0+1).(0+1)
+ *     (0+1)*.1.1.1.(0+1)*
+ *     (1*.0.1*.0.1*)*+1*
+ * 
+ * Regular expression should not have spaces.
+ * Regular expression should contain letters '0', '1', '.', '+', '*' or 'e'.
+ * Regular expression should contain atmost 19 symbols ('0', '1' or 'e')
+ */
+
 #include <bits/stdc++.h>
 #define MAX_SIZE (1 << 20)
 using namespace std;
@@ -93,7 +108,10 @@ int main()
 	cin >> str;
 	
 	/* check whether string is accepted by DFA */
-	cout << accept() << endl;
+	if (accept())
+		cout << "String is accepted by the DFA" << endl;
+	else
+		cout << "String is rejected by the DFA" << endl;
 	
 	return 0;
 }
@@ -181,10 +199,9 @@ void parse_postfix()
 		{
 		case '0':
 		case '1':
-		case 'e':
 		case '#':
-			if (nd->data == '0' || nd->data == '1' || nd->data == '#')
-				nd->firstpos[nd->pos] = nd->lastpos[nd->pos] = true;
+			nd->firstpos[nd->pos] = nd->lastpos[nd->pos] = true;
+		case 'e':
 			stk[stk_top] = nd;
 			stk_top++;
 			break;
